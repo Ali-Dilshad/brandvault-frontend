@@ -6,7 +6,10 @@ class FolderModel {
   final String? parentId;
 
 
-  FolderModel({required this.id, required this.name, required this.parentId});
+  FolderModel({
+    required this.id,
+    required this.name,
+    this.parentId});
 
   factory FolderModel.fromJson(Map<String, dynamic> json) => FolderModel(
       id: json['id'],
