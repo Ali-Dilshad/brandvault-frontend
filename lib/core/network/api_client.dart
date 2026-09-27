@@ -7,7 +7,7 @@ import '../errors/app_exceptions.dart';
 
 
 class AppApiClient {
-  static final bool useMock = const bool.fromEnvironment('USE_MOCK', defaultValue: true);
+  static final bool useMock = const bool.fromEnvironment('USE_MOCK', defaultValue: false);
   static const _tokenKey = 'brandvault_token';
   static const _timeout = Duration(seconds: 60);
 

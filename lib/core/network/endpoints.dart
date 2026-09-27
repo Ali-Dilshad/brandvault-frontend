@@ -1,7 +1,7 @@
 class Endpoints {
   static const String baseUrl = String.fromEnvironment(
     '',
-    defaultValue: 'http://localhost:3000',
+    defaultValue: 'http://localhost:4000',
   );
 
   static const String signUp = '/auth/signup';
@@ -17,3 +17,4 @@ class Endpoints {
   static String assetAiTags(String id) => '/assets/$id/ai-tags';
   static String assetAiTagsSave(String id) => '/assets/$id/ai-tags/save';
 }
+

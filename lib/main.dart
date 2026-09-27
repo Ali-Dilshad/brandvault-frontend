@@ -1,72 +1,37 @@
 import 'package:flutter/material.dart';
+import 'core/network/api_client.dart';
+import 'core/theme/app_theme.dart';
+import 'features/asset_library/presentation/pages/dashboard_page.dart';
+import 'features/auth/presentation/pages/login_page.dart';
 
-void main() {
-  runApp(const MyApp());
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await AppApiClient.init();
+
+  AppApiClient.onUnauthorized = () {
+    navigatorKey.currentState?.pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const LoginPage(sessionExpired: true)),
+          (_) => false,
+    );
+  };
+
+  runApp(const BrandVaultApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class BrandVaultApp extends StatelessWidget {
+  const BrandVaultApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-
-        child: Column(
-
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      title: 'BrandVault',
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      theme: buildAppTheme(),
+      home: AppApiClient.hasToken ? const DashboardPage() : const LoginPage(),
     );
   }
 }
