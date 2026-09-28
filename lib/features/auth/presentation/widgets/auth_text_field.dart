@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AuthTextField extends StatelessWidget {
+class AuthTextField extends StatefulWidget {
   final TextEditingController controller;
   final String label;
   final bool obscureText;
@@ -19,13 +19,30 @@ class AuthTextField extends StatelessWidget {
   });
 
   @override
+  State<AuthTextField> createState() => _AuthTextFieldState();
+}
+
+class _AuthTextFieldState extends State<AuthTextField> {
+  late bool _hidden = widget.obscureText;
+
+  @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: controller,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      onSubmitted: onSubmitted,
-      decoration: InputDecoration(labelText: label, errorText: errorText),
+      controller: widget.controller,
+      obscureText: _hidden,
+      keyboardType: widget.keyboardType,
+      onSubmitted: widget.onSubmitted,
+      decoration: InputDecoration(
+        labelText: widget.label,
+        errorText: widget.errorText,
+        suffixIcon: widget.obscureText
+            ? IconButton(
+          tooltip: _hidden ? 'Show password' : 'Hide password',
+          icon: Icon(_hidden ? Icons.visibility_outlined : Icons.visibility_off_outlined),
+          onPressed: () => setState(() => _hidden = !_hidden),
+        )
+            : null,
+      ),
     );
   }
 }

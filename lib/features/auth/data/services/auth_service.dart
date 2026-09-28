@@ -20,7 +20,7 @@ class AuthService {
   Future<UserModel> _authenticate(String path, String email, String password) async{
     if (AppApiClient.useMock){
 
-      await Future.delayed(const Duration(microseconds: 300));
+      await Future.delayed(const Duration(milliseconds: 300));
       await AppApiClient.setToken('mock-jwt-token');
       return UserModel(id: 'mock-user-1', email: email.trim());
     }
@@ -28,6 +28,7 @@ class AuthService {
     try{
       final json = await AppApiClient.post(path,
       body: {'email': email.trim(), 'password': password},
+        authenticated: false,
       );
 
       await AppApiClient.setToken(json['token'] as String);
