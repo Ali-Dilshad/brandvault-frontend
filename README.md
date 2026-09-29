@@ -4,8 +4,7 @@ Flutter web app for managing a brand kit and an asset library. The API is in [br
 
 ## Live demo
 
-- App: ``
-- API: ``
+- App: `https://brandvault-klepon-90763.netlify.app` (the API runs on a free tier and sleeps when idle, so the first load can take up to a minute)
 - Demo login: `demo@brandvault.dev` / `Demo1234!`, or click "Continue as demo" on the login page
 
 ## Stack
