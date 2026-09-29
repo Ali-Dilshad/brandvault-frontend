@@ -96,8 +96,6 @@ The models are in `lib/features/*/data/models/`. The database schema and migrati
 - There are no Flutter tests. The API has its own test suite and the app was checked by hand.
 - Web only. The layout adapts to phone widths, but there is no native mobile build.
 
-## Next 3 improvements
-
 ## Next improvements
 
 1. Polish the UI: skeleton loaders instead of spinners, a dark mode, consistent icons and spacing, and smoother transitions between screens.
